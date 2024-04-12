@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
+    public final ListPath<com.example.reactboard.domain.article.article.Article, com.example.reactboard.domain.article.article.QArticle> articles = this.<com.example.reactboard.domain.article.article.Article, com.example.reactboard.domain.article.article.QArticle>createList("articles", com.example.reactboard.domain.article.article.Article.class, com.example.reactboard.domain.article.article.QArticle.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final com.example.reactboard.domain.article.member.image.QImage image;

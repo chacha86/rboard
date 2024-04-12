@@ -1,9 +1,12 @@
 package com.example.reactboard.domain.article.member;
 
+import com.example.reactboard.domain.article.article.Article;
 import com.example.reactboard.domain.article.member.image.Image;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -17,4 +20,7 @@ public class Member {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @OneToMany(mappedBy = "member")
+    private List<Article> articles;
 }

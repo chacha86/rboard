@@ -16,9 +16,12 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Article>> getAllArticles(@RequestParam(defaultValue = "1") int page, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    public ResponseEntity<Page<Article>> getAllArticles(@RequestParam(defaultValue = "1") int page,
+                                                        @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                                        @RequestParam(value = "type", defaultValue = "total") String type) {
+
         Pageable pageable = Pageable.ofSize(10).withPage(page);
-        Page<Article> articlePage = articleService.getAllArticles(pageable, keyword);
+        Page<Article> articlePage = articleService.getAllArticles(type, keyword, pageable);
         return ResponseEntity.ok().body(articlePage);
     }
 }

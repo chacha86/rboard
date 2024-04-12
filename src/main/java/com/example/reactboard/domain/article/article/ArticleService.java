@@ -49,7 +49,7 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public Page<Article> getAllArticles(Pageable pageable, String keyword) {
-        return articleRepository.findAll(pageable, keyword);
+    public Page<Article> getAllArticles(String type, String kw, Pageable pageable) {
+        return articleRepository.findMainArticles(type, kw, pageable);
     }
 }

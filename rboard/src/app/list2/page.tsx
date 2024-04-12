@@ -10,12 +10,14 @@ export default function List2() {
     const params = useSearchParams();
     const pageParam = params.get('page') === null ? 1 : Number(params.get('page'));
     const keywordParam = params.get('keyword') === null ? '' : String(params.get('keyword'));
+    const typeParam = params.get('type') === null ? '' : String(params.get('type'));
 
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(pageParam);
     const [lastPageNo, setLastPageNo] = useState(0);
     const [keyword, setKeyword] = useState(keywordParam);
+    const [type, setType] = useState(typeParam);
 
     // useEffect를 사용하지 않으면 무한 호출. useEffect를 사용하면 한번만 호출
     useEffect(() => {
@@ -34,12 +36,15 @@ export default function List2() {
 
     const movePage = (page: number) => {
         setPage(page);
-        router.push(`/list2?page=${page}&keyword=${keyword}`);
+        router.push(`/list2?page=${page}&keyword=${keyword}&type=${type}`);
     }
 
-    const searchKeyword = (keyword: string) => {
+    const searchKeyword = (keyword: string, type:string) => {
         setKeyword(keyword);
-        router.push(`/list2?page=${page}&keyword=${keyword}`);
+        setType(type);
+        const startPage = 1;
+        router.push(`/list2?page=${startPage}&keyword=${keyword}&type=${type}`);
+        setPage(startPage);
     }
 
     // fetch가 비동기이기 때문에 통신 완료 될때까지 로딩화면 띄우기
@@ -65,20 +70,30 @@ export default function List2() {
     );
 }
 
-function Search({searchKeyword}:any) {
+function Search({searchKeyword, searchType}:any) {
     const [keyword, setKeyword] = useState('');
+    const [type, setType] = useState('total');
 
     const changeHandle = (e: any) => {
         setKeyword(e.target.value);
     }
+    const changeSelectHandle = (e: any) => {
+        setType(e.target.value);
+    }
 
     const clickHandle = (e: any) => {
-        searchKeyword(keyword);
+        searchKeyword(keyword, type);
     }
 
     return (
         <div>
-            <input type="text" value={keyword} onChange={changeHandle}/>
+            <input type="text" value={keyword} onChange={changeHandle} className="border-2 border-b-black"/>
+            <select name="type" onChange={changeSelectHandle}>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="author">작성자</option>
+                <option value="total">전체</option>
+            </select>
             <button onClick={clickHandle}>검색</button>
         </div>
     )
