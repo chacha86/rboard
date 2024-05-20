@@ -48,7 +48,7 @@ public class QArticle extends EntityPathBase<Article> {
 
     public QArticle(Class<? extends Article> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.example.reactboard.domain.article.member.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.example.reactboard.domain.article.member.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

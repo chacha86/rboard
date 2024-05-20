@@ -38,3 +38,10 @@ out/
 
 ### file ###
 /images/
+
+
+### front-end ###
+/front/node_modules
+/front/.next
+/rboard/node_modules
+/rboard/.next

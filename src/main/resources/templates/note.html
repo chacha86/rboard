@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" lang="ko">
+<div layout:fragment="content" class="h-[80vh] bg-blue-500 flex flex-col">
+    <div class="editor flex">
+        <div class="left bg-red-500 w-[20%]">
+            <ul class="menu bg-base-200 p-0 [&_li>*]:rounded-none">
+                <li th:each="note : ${notes}">
+                    <div  class="flex justify-between group">
+                        <a href="#" th:text="${note.name}"></a>
+                        <i class="fa-solid fa-square-plus hidden group-hover:block"></i>
+<!--                        <a href="#" class="hidden rounded-3xl border-2 px-1 text-[1rem] group-hover:block">+</a>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="right bg-base-100 w-[80%]"></div>
+    </div>
+    <div class="action-tools absolute w-[100%] h-[50px] bottom-0 bg-emerald-700">
+        <ul class="flex gap-5 h-[100%] items-center">
+            <form action="/note/add" method="post">
+                <button type="submit">노트 추가</button>
+            </form>
+        </ul>
+    </div>
+</div>
+</html>

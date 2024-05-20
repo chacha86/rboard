@@ -2,6 +2,7 @@ package com.example.reactboard.domain.article.article;
 
 import com.example.reactboard.domain.article.member.Member;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -9,15 +10,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
+//    public ArticleService(ArticleRepository articleRepository) {
+//        this.articleRepository = articleRepository;
+//
+//        save("제목1", "내용1");
+//        save("제목2", "내용2");
+//        save("제목3", "내용3");
+//    }
 
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-
-        save("제목1", "내용1");
-        save("제목2", "내용2");
-        save("제목3", "내용3");
+    public Article saveDefault() {
+        return save("제목1", "내용1");
     }
 
     @Transactional

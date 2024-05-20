@@ -1,6 +1,7 @@
 package com.example.reactboard.domain.article.article;
 
 import com.example.reactboard.domain.article.member.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
 }
