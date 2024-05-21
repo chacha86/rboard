@@ -22,4 +22,12 @@ public class Article {
     @JsonBackReference
     private Member member;
 
+    public ArticleDto toArticleDto() {
+        ArticleDto articleDto = new ArticleDto();
+        articleDto.setId(id);
+        articleDto.setTitle(title);
+        articleDto.setContent(content);
+        articleDto.setMember(member);
+        return articleDto;
+    }
 }

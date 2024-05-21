@@ -8,7 +8,7 @@ export default function Detail({ params }: { params: { id: number } }) {
   const [article, setArticle] = useState<Article | null>(null);
   const [title, setTitle] = useState("");
   const editorRef = useRef<Editor | null>(null);
-  const router = useRouter(); 
+  const router = useRouter();
 
   useEffect(() => {
     fetch(`http://localhost:8088/api/v1/articles/${params.id}`)
@@ -67,7 +67,7 @@ export default function Detail({ params }: { params: { id: number } }) {
   if (article == null) return <div>loading..</div>;
 
   return (
-    <div className="card w-[800px] h-[800px] bg-base-100 shadow-xl">
+    <div className="card">
       <div className="card-body">
         <h2 className="card-title">
           <input
@@ -79,13 +79,16 @@ export default function Detail({ params }: { params: { id: number } }) {
           />
         </h2>
         <Editor ref={editorRef} height="650px" initialValue={article.content} />
-        <div className="flex justify-end gap-7">
-          <button className="btn" onClick={doUpdate}>
-            수정
-          </button>
-          <button className="btn" onClick={doDelete}>
-            삭제
-          </button>
+        <div className="flex justify-between gap-7">
+          <button className="btn" onClick={() => {router.back()}}>목록</button>
+          <div>
+            <button className="btn" onClick={doUpdate}>
+              수정
+            </button>
+            <button className="btn" onClick={doDelete}>
+              삭제
+            </button>
+          </div>
         </div>
       </div>
     </div>

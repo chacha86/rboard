@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,7 +55,13 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public Page<Article> getAllArticles(String type, String kw, Pageable pageable) {
-        return articleRepository.findMainArticles(type, kw, pageable);
+    public ArticlePageDto getAllArticles(String type, String kw, Pageable pageable) {
+
+        Page<Article> articles = articleRepository.findMainArticles(type, kw, pageable);
+        List<ArticleDto> articleDtoList = new ArrayList<>();
+        for (Article article : articles) {
+            articleDtoList.add(article.toArticleDto());
+        }
+        return new ArticlePageDto(articleDtoList, articles.getTotalPages());
     }
 }

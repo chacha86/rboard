@@ -1,6 +1,9 @@
 package com.example.reactboard.domain.article.article;
 
+import com.example.reactboard.domain.article.member.Member;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +19,12 @@ public class ArticleRestController {
     private final ArticleService articleService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Article>> getAllArticles(@RequestParam(defaultValue = "1") int page,
-                                                        @RequestParam(value = "keyword", defaultValue = "") String keyword,
-                                                        @RequestParam(value = "type", defaultValue = "total") String type) {
-
+    public ResponseEntity<com.example.reactboard.domain.article.article.ArticlePageDto> getAllArticles(@RequestParam(defaultValue = "1") int page,
+                                                                                                       @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                                                                                       @RequestParam(value = "type", defaultValue = "total") String type) {
         Pageable pageable = Pageable.ofSize(10).withPage(page);
-        Page<Article> articlePage = articleService.getAllArticles(type, keyword, pageable);
-        System.out.println(articlePage);
-        for (Article article : articlePage.getContent()) {
-            System.out.println(article);
-        }
-        return ResponseEntity.ok().body(articlePage);
+        ArticlePageDto articlePageDto = articleService.getAllArticles(type, keyword, pageable);
+        return ResponseEntity.ok().body(articlePageDto);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Article> getArticle(@PathVariable Long id) {
