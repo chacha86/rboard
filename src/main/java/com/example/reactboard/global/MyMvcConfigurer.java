@@ -13,4 +13,7 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
                 .addResourceLocations("file:///C:/work/java/react-board/images/profile/");
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
+
+
+
 }

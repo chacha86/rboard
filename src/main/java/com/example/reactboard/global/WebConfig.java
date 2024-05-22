@@ -1,5 +1,7 @@
 package com.example.reactboard.global;
 
+import com.example.reactboard.domain.auth.filter.JwtAuthenticationFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -21,5 +23,16 @@ public class WebConfig {
                         .maxAge(3600);
             }
         };
+    }
+
+    @Bean
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter() {
+        FilterRegistrationBean<JwtAuthenticationFilter> registrationBean
+                = new FilterRegistrationBean<>();
+
+        registrationBean.setFilter(new JwtAuthenticationFilter());
+        registrationBean.addUrlPatterns("/*");
+
+        return registrationBean;
     }
 }
